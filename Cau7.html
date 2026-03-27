@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <style type = "text/css">
+            .c1 {
+                color: blue;
+            }
+            table {
+                border-collapse:collapse;
+                
+            }
+            table, td, th {
+                border: 2px solid black
+            }
+            .tb {
+                display: flex;
+                justify-content: center;
+                align-items:center
+            }
+            #cmm {
+                width:250px
+            }
+            #dcm {
+                width: 250px
+            }
+            .text {
+                width: 50px
+            }
+            #se {
+                width: 210px
+            }
+        </style>
+    </head>
+    <body bgcolor = "#FFDD99">
+        <h2 align = "center">Phiếu đăng ký tour du lịch</h2>
+        <br>
+        <div class = "tb">
+            <table width = "500">
+                <tr>
+                    <td class = "c1">Họ và tên khách</td>
+                    <td><input type = "text" placeholder = "Nguyễn Văn A"></td>
+                </tr>
+                <tr>
+                    <td class = "c1">Địa chỉ</td>
+                    <td><input type = "text" id = "cmm" placeholder = "abc,xyz,jqk" "></td>
+                </tr>
+                <tr>
+                    <td class = "c1">Điện thoại</td>
+                    <td><input type = "text" placeholder = "09xxxxxxxx"</td>
+                </tr>
+                <tr>
+                    <td class = "c1">Tour</td>
+                    <td><select size = 1 id = "se">
+                        <option selected>Chọn tour</option>
+                        <option>Hà Nội - Hạ Long - Tuần Châu: 10.000.000 đ</option>
+                        <option>Hà Nội - Sapa: 6.000.000 đ</option>
+                        <option>Đà Nẵng - Hội An: 3.000.000 đ</option>
+                        <option>Buôn Mê Thuộc - Kon Tum: 2.000.000 đ</option>
+                        <option>TP.HCM - Nha Trang: 3.500.000 đ</option>
+                        <option>TP.HCM - Cần Thơ - Cà Mau: 2.500.000 đ</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td colspan = "2">
+                    <fieldset class = "c1" id = "dcm">
+                        <legend>Số lượng đoàn khách</legend>
+                        Người lớn <input type = "text" value = "1" class = "text">
+                        Trẻ em <input type = "text" value = "0" class = "text">
+                    </fieldset>
+                    </td>
+                </tr>
+                <tr>
+                    <td class = "c1" height = "100">Ghi chú</td>
+                    <td colspan = "3"><textarea rows = "6" style = "width: 95%"></textarea></td>
+                </tr>
+                <tr>
+                    <td colspan = "2" align = "center"><input type = "button" value = "Đăng ký"></td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
