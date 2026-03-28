@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = utf-8>
+        <script src = "jquery-4.0.0.js"></script>
+        <style type = text/css>
+            #time {
+                font-size: 14px;
+                color: blue;
+            }
+            #nv {
+                font-size: 14px;
+                color: blue;
+            }
+            .t1 {
+                font-size: 12px;
+                font-weight: bold;
+                color: #CCCC99;
+            }
+            .b1 {
+                padding-top: 5px
+            }
+            table  {
+                border-collapse: collapse;
+                border: 1px solid black;
+            }   
+            td {
+                border: 1px solid black
+            }
+            .hd {
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            $(document).ready(function(){
+                function updateTime(){
+                    var now = new Date();
+                    var thuarr = ["Chủ Nhật","Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7"];
+                    var thu = thuarr[now.getDay()];
+                    var ngay = now.getDate().toString().padStart(2,'0');
+                    var thang = (now.getMonth()+1).toString().padStart(2,'0');
+                    var nam = now.getFullYear();
+                    var gio = now.getHours().toString().padStart(2,'0');
+                    var phut = now.getMinutes().toString().padStart(2,'0');
+                    var kq = thu + "," + ngay + "/" + thang + "/" + nam + "," + gio + ":" + phut;
+                    $("#time").text(kq);
+                }
+                updateTime();
+                setInterval(updateTime,1000);
+            })
+                var giamon = [20000,18000,17000,19000,15000,12000,15000];
+                var soluong = [0,0,0,0,0,0,0];
+                function HoaDon(){
+                    var mon = document.getElementById("monan");
+                    var idx = mon.selectedIndex;
+                    soluong[idx]++;
+                    hienthi();
+                }
+                function xoamon(i){
+                    soluong[i] = 0;
+                    hienthi();
+                }
+                function inhd (){
+                    var ban = document.getElementById("ban");
+                    var banan = ban.options[ban.selectedIndex].text;
+                    var mon = document.getElementById("monan");
+                    var thoigian = document.getElementById("time").innerText;
+                    var tong = 0;
+                    var html = `
+                        <html>
+                        <head>
+                        <style>
+                            .box {
+                                width: 400px;
+                                border: 2px solid black;
+                                padding: 10px;
+                                margin: auto;
+                            }
+                            h2 {
+                                text-align: center;
+                                margin-bottom: 10px;
+                            }
+                            table {
+                                width: 100%;
+                                border-collapse: collapse;
+                                margin-top: 10px;
+                            }
+                            td, th {
+                                text-align: center;
+                                padding: 5px;
+                            }
+                            .total {
+                                font-weight: bold;
+                                font-size: 18px;
+                                text-align: center;
+                                margin-top: 10px;
+                            }
+                        </style>
+                        </head>
+                        <body>
+                            <div class="box">
+                                <h2>Hóa đơn</h2>
+                                <p>Ngày hóa đơn: ${thoigian}</p>
+                                <p>Nhân viên: Nguyễn Văn A</p>
+                                <p>Bàn:${banan}</p>
+                            <table>
+                                <tr>
+                                    <th>Món</th>
+                                    <th>SL</th>
+                                    <th>Thành tiền</th>
+                                </tr>`;
+    for (var i = 0; i < soluong.length; i++){
+        if(soluong[i] > 0){
+            var tien = soluong[i] * giamon[i];
+            tong += tien;
+            html += `
+                <tr>
+                    <td>${mon.options[i].text}</td>
+                    <td>${soluong[i]}</td>
+                    <td>${tien.toLocaleString()}</td>
+                </tr>`;
+        }}
+            html += `
+            </table>
+            <p class="total">Tổng tiền: ${tong.toLocaleString()} đ</p>
+        </div>
+    </body>
+    </html>`;
+    var win = window.open('', '');
+    win.document.write(html);
+    win.document.close();
+    }
+                function hienthi(){
+                    var mon = document.getElementById("monan");
+                    var ban = document.getElementById("ban");
+                    var banan = ban.options[ban.selectedIndex].text;
+                    var tong = 0;
+                    var kq = "<table height = 200>";
+                    kq += "<tr><td class = hd align = center colspan = 4>" + banan + "</td></tr>";
+                    kq += "<tr><td class = hd align = center>Món</td><td class = hd align = center>SL</td><td class = hd align = center>Tiền</td><td></td></tr>";
+                    for ( var i = 0; i < soluong.length; i++ ){
+                        if (soluong[i] > 0 ){
+                            kq += "<tr><td align = center>" + mon.options[i].text + "</td><td><input size = '2' value = '" + soluong[i] + "'></td>" + "<td><input size = '2' value = '" + (soluong[i]*giamon[i]) + "'></td><td><input type = 'button' value = 'Xóa' onClick = 'xoamon ("+i+")'></td></tr>";
+                            tong += soluong[i] * giamon[i];
+                        }}         
+                    kq += "<tr><td class = hd>Tổng tiền</td><td class = hd colspan = 3 align = center>" + tong + " đ" + "</td><tr>";
+                    kq += "<tr><td align = center colspan = 4><input type = 'button' value = 'In hóa đơn' onclick = 'inhd()'></td></tr>";
+                    kq += "</table>"
+                    document.getElementById("kq").innerHTML = kq;}
+        </script>
+        <table border = 1 width = 500 height = 400>
+            <tr>
+                <td id = "time" width = 300 height = 50></td>
+                <td id = "nv">Nhân viên: Nguyễn Văn A</td>
+            </tr>
+            <tr>
+                <td colspan = 2 align = center><h3>THỰC ĐƠN</h3></td>
+            </tr>
+            <tr>
+                <td colspan = 2 align = center>
+                    <table border = 1 width = 200 height = 250>
+                        <tr>
+                            <td height = 40 bgcolor = #0033CC class = t1 align = center>Bàn</td>
+                            <td bgcolor = #0033CC class = t1 align = center>Món ăn</td>
+                        </tr>
+                        <tr>
+                            <td class = b1 valign = top align = center>
+                                <select id = "ban" size = 1>
+                                    <option>Bàn 1</option>
+                                    <option>Bàn 2</option>
+                                    <option>Bàn 3</option>
+                                </select>
+                            </td>
+                            <td class = "b1" valign = top align = center>
+                                <select id = "monan" size = 1 onchange = HoaDon()>
+                                    <option selected>Bún bò</option>
+                                    <option>Hủ tiếu</option>
+                                    <option>Bánh canh</option>
+                                    <option>Phở bò</option>
+                                    <option>Nuôi</option>
+                                    <option>Bánh mỳ thịt</option>
+                                    <option>Bánh cuốn</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <div id = "kq"></div>
+    </body>
+</html>

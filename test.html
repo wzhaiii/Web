@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8>
+    <script src="jquery-4.0.0.js"></script>
+    <style type=text/css>
+        u {
+            color: purple;
+        }
+
+        input[type="button"] {
+            margin-left: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Thông tin phiếu mượn sách</h3>
+    <h4>Họ tên độc giả</h4>
+    <p><input type="text" id="ten" size="50" placeholder="abc"></p>
+    <h4>Số điện thoại</h4>
+    <p><input type="text" id="sdt" size="50" placeholder="09xxxxxxxx"></p>
+    <h4>Ngày mượn sách</h4>
+    <p><input type="text" id="day" size="50" placeholder="14/10/2024"></p>
+    <div id="bookctn">
+        <h4>Tựa sách</h4>
+        <input type="text" size="30" list="booklist">
+    </div>
+    <datalist id="booklist">
+        <option value="Nexus"></option>
+        <option value="Doraemon"></option>
+    </datalist>
+    <p onclick="addbook()"><u>Thêm sách mượn</u></p>
+    <h4>Ghi chú</h4>
+    <p><input type="text" size="50" id="ghichu" placeholder="Ghi chú"></p>
+    <input type="button" value="Thêm" onclick="hienthi()">
+    <input type="button" value="Reset">
+    <script>
+        function addbook() {
+            var content = document.getElementById("bookctn");
+            var div = document.createElement("div");
+            var h4 = document.createElement("h4");
+            h4.innerText = "Tựa sách";
+            var input = document.createElement("input");
+            input.type = "text";
+            input.size = "30";
+            input.setAttribute("list", "booklist");
+            div.appendChild(h4);
+            div.appendChild(input);
+            content.appendChild(div);
+        }
+        function hienthi() {
+            var ten = document.getElementById("ten");
+            var ngay = document.getElementById("day").value;
+            var p1 = document.createElement("p");
+            p1.style.color = "blue";
+            p1.style.textDecoration = "underline";
+            p1.innerText = ten.value;
+            document.body.appendChild(p1);/* document.body ở đây nó tương tự như khai báo thẻ div trong js, như ở trên dùng thẻ div chứa*/
+            var p2 = document.createElement("p");
+            p2.innerText = "Ngày mượn:" + ngay;
+            document.body.appendChild(p2);
+            var books = document.querySelectorAll("#bookctn input");
+            for (var i = 0; i < books.length; i++) {
+                var book = books[i];
+                if (book.value.trim() !== "") {
+                    var p = document.createElement("p");
+                    p.innerText = "Sách: " + book.value;
+                    document.body.appendChild(p);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

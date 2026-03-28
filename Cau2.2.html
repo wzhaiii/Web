@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = utf-8>
+        <style type = text/css>
+            table,td {
+                border-collapse: collapse;
+                border: 1px solid blue;
+            }
+            .t1 {
+                color: blue;
+                font-weight: bold;
+            }
+            input[type = button] {
+                border-radius: 100px;
+            }
+            h2 {
+                margin-left: 120px;
+            }
+            .kqtable, .kqtable td {
+                border: 2px solid red;
+                border-collapse: collapse
+            }
+        </style>
+    </head>
+    <body bgcolor = yellow>
+        <script>
+            function Tinhtien (){
+                var mon = document.getElementById ("thucan");
+                var nuoc = document.getElementById ("nuocuong");
+                var giamon = [20000,18000,17000,19000,15000,12000,15000];
+                var gianuoc = [12000,15000,13000,12000,14000,13000,17000];
+                var tong = 0;
+                var kq = "<table class = kqtable>";
+                kq += "<tr><td align = center class = t1>Các món đã dùng</td><td align = center class = t1>Tiền</td></tr>";
+                for ( var i = 0; i < mon.options.length; i++ ){
+                    if (mon.options[i].selected){
+                        kq += "<tr><td>" + mon.options[i].text + "</td><td>" + giamon[i] + "</td></tr>";
+                        tong += giamon[i];
+                    }
+                }
+                for ( var i = 0; i < nuoc.options.length; i++ ){
+                    if (nuoc.options[i].selected){
+                        kq += "<tr><td>" + nuoc.options[i].text + "</td><td>" + gianuoc[i] + "</td></tr>";
+                        tong += gianuoc[i];
+                    }
+                }
+                if (document.getElementById("dem").checked){
+                    tong = tong * 1.1;
+                }
+                kq += "<tr><td>Tổng tiền</td><td>" + tong + " đồng</td></tr>";
+                kq += "</table>";
+                document.getElementById("ketqua").innerHTML = kq;
+            }
+        </script>
+        <h2>THỰC ĐƠN</h2>
+        <div>
+            <table>
+                <tr>
+                    <td align = center class = t1>Thức ăn</td>
+                    <td align = center class = t1>Nước uống</td>
+                    <td align = center width = 180px class = t1>Thời điểm</td>
+                </tr>
+                <tr>
+                    <td><select size = 7 id = "thucan" multiple>
+                            <option>Bún bò</option>
+                            <option>Hủ tiếu</option>
+                            <option>Bánh canh</option>
+                            <option>Phở bò</option>
+                            <option>Nuôi</option>
+                            <option>Bánh mì thịt</option>
+                            <option>Bánh cuốn</option>
+                        </select>
+                    </td>
+                    <td><select size = 7 id = "nuocuong" multiple>
+                            <option>Cà phê đá</option>
+                            <option>Cà phê sữa đá</option>
+                            <option>Chanh dây</option>
+                            <option>Chanh muối</option>
+                            <option>Xí muội</option>
+                            <option>Sữa tươi</option>
+                            <option>Cam vắt</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type = radio checked> Ban ngày <br><br>
+                        <input type = radio id = dem> Ban đêm
+                    </td>
+                </tr>
+                <tr>
+                    <td align = center colspan = 3>
+                        <input type = button value = "Tính tiền" onclick = "Tinhtien()"> 
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id = ketqua></div>
+    </body>
+</html>
