@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src = "jquery-4.0.0.js"></script>
+    <style type = text/css>
+        b {
+            text-decoration: underline;
+            color: purple;
+        }
+    </style>
+</head>
+<body>
+    <h2>Thông tin bài báo khoa học</h2>
+    <h3>Tên bài báo</h3>
+    <p><input type = "text" size = "50" placeholder = "abc" id = "tbb"></p>
+    <h3>Tên tạp chí/hội nghị</h3>
+    <p><input type = "text" size = "50" placeholder = "abc" id = "ttc"></p>
+    <h3>Tác giả chính</h3>
+    <p><input type = "text" size = "50" placeholder = "abc" id = "tgc"></p>
+    <div id = "tacgias">
+        <h3>Đồng tác giả</h3>
+        <input type = "text" size = "50" placeholder = "abc">
+    </div>
+    <p onclick = addtg()><b>Thêm đồng tác giả</b></p>
+    <h3>Ngày nộp</h3>
+    <p><input type = "text" size = "50" placeholder = "24/04/2024" id = "ngaynop"></p>
+    <h3>Ngày chấp nhận đăng</h3>
+    <p><input type = "text" size = "50" placeholder = "24/04/2024" id = "ngaydang"></p>
+    <h3>Ghi chú</h3>
+    <p><input type = "text" size = "50" placeholder = "Ghi chú" id = "gc"></p>
+    <input type = "button" value = "Thêm" onclick = "hienthi()">
+    <input type = "button" value = "Reset">
+    <div id = "ketqua"></div>
+    <script>
+        function addtg(){
+            var tacgia  = document.getElementById("tacgias");
+            var newdiv = document.createElement("div");
+            var h3 = document.createElement("h3");
+            h3.innerText = "Đồng tác giả";
+            var input = document.createElement("input");
+            input.type = "text";
+            input.size = "50";
+            input.placeholder = "abc";
+            newdiv.appendChild(h3);
+            newdiv.appendChild(input);
+            tacgia.appendChild(newdiv);
+        }
+        function thongtin(){
+            var ten = document.getElementById("tbb").value;
+            var tgc = document.getElementById("tgc").value;
+            var tc = document.getElementById("ttc").value;
+            var nn = document.getElementById("ngaynop").value;
+            var nd = document.getElementById("ngaydang").value;
+            var dongtacgia = document.querySelectorAll("#tacgias input");
+            var dtacgia = "";
+                for ( let i = 0; i < dongtacgia.length; i++ ){
+                    if ( dongtacgia[i].value.trim() !== "" ){
+                        let dtg = dongtacgia[i].value;
+                        dtacgia += `<p>${dtg},</p>`;
+                    }
+                }
+            let win = window.open();
+            win.document.write (`
+                <h3 align = "center">Thông tin bài báo</h3>
+                <p><b>Tên bài báo</b> ${ten}</p>
+                <p><b>Tạp chí/Hội nghị</b> ${tc}</p>
+                <p><b>Tác giả chính</b> ${tgc}</p>
+                <p><b>Ngày nộp</b> ${nn}</p>
+                <p><b>Ngày chấp nhận đăng</b> ${nd}</p>
+                <p><b>Các đồng tác giả</b> ${dtacgia}</p>
+            `)
+        }
+        function hienthi(){
+            var kq = document.getElementById("ketqua");
+            var ten = document.getElementById("tbb").value;
+            var tgc = document.getElementById("tgc").value;
+            var tc = document.getElementById("ttc").value;
+            var nn = document.getElementById("ngaynop").value;
+            var nd = document.getElementById("ngaydang").value;
+            var a = document.createElement("a");
+            a.href = "#";
+            a.style.textDecoration = "underline";
+            a.color = "blue";
+            a.innerText = ten;
+            a.onclick = thongtin;
+            kq.appendChild(a);
+            var ttg = document.createElement("p");
+            ttg.innerText = `Tác giả chính: ${tgc}`;
+            kq.appendChild(ttg);
+            var ttc = document.createElement("p");
+            ttc.innerText = `Tạp chí/Hội nghị: ${tc}`;
+            kq.appendChild(ttc);
+            var ngnop = document.createElement("p");
+            ngnop.innerText = `Ngày nộp: ${nn}`; 
+            kq.appendChild(ngnop);
+            var ngdang = document.createElement("p");
+            ngdang.innerText = `Ngày chấp nhận đăng: ${nd}`;
+            kq.appendChild(ngdang);
+        }
+    </script>
+</body>
+</html>
